@@ -29,7 +29,7 @@ use bevy_reflect::{FromReflect, Reflect};
 use keyboard::{keyboard_input_system, KeyCode, KeyboardInput, ScanCode};
 use mouse::{
     mouse_button_input_system, Magnify, MouseButton, MouseButtonInput, MouseMotion,
-    MouseScrollUnit, MouseWheel,
+    MouseScrollUnit, MouseWheel, Rotate,
 };
 use touch::{touch_screen_input_system, ForceTouch, TouchInput, TouchPhase, Touches};
 
@@ -67,6 +67,7 @@ impl Plugin for InputPlugin {
             .add_system(mouse_button_input_system.in_set(InputSystem))
             // touchpad
             .add_event::<Magnify>()
+            .add_event::<Rotate>()
             // gamepad
             .add_event::<GamepadConnectionEvent>()
             .add_event::<GamepadButtonChangedEvent>()
@@ -111,7 +112,7 @@ impl Plugin for InputPlugin {
             .register_type::<MouseWheel>();
 
         // Register touchpad types
-        app.register_type::<Magnify>();
+        app.register_type::<Magnify>().register_type::<Rotate>();
 
         // Register touch types
         app.register_type::<TouchInput>()
