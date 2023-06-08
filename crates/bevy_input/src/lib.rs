@@ -65,7 +65,6 @@ impl Plugin for InputPlugin {
             .add_event::<MouseWheel>()
             .init_resource::<Input<MouseButton>>()
             .add_system(mouse_button_input_system.in_set(InputSystem))
-            // touchpad
             .add_event::<Magnify>()
             .add_event::<Rotate>()
             // gamepad

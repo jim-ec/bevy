@@ -139,7 +139,7 @@ pub struct Magnify(pub f32);
 ///
 /// Positive delta values indicate rotation counterclockwise and
 /// negative delta values indicate rotation clockwise.
-#[derive(Event, Debug, Clone, Copy, PartialEq, Reflect, FromReflect)]
+#[derive(Debug, Clone, Copy, PartialEq, Reflect, FromReflect)]
 #[reflect(Debug, PartialEq)]
 #[cfg_attr(
     feature = "serialize",
