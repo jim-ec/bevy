@@ -18,7 +18,7 @@ use bevy_ecs::event::{Events, ManualEventReader};
 use bevy_ecs::prelude::*;
 use bevy_input::{
     keyboard::KeyboardInput,
-    mouse::{MouseButtonInput, MouseMotion, MouseScrollUnit, MouseWheel},
+    mouse::{Magnify, MouseButtonInput, MouseMotion, MouseScrollUnit, MouseWheel},
     touch::TouchInput,
 };
 use bevy_math::{ivec2, DVec2, Vec2};
@@ -222,6 +222,7 @@ struct InputEvents<'w> {
     keyboard_input: EventWriter<'w, KeyboardInput>,
     character_input: EventWriter<'w, ReceivedCharacter>,
     mouse_button_input: EventWriter<'w, MouseButtonInput>,
+    magnify_input: EventWriter<'w, Magnify>,
     mouse_wheel_input: EventWriter<'w, MouseWheel>,
     touch_input: EventWriter<'w, TouchInput>,
     ime_input: EventWriter<'w, Ime>,
@@ -453,6 +454,9 @@ pub fn winit_runner(mut app: App) {
                             button: converters::convert_mouse_button(button),
                             state: converters::convert_element_state(state),
                         });
+                    }
+                    WindowEvent::TouchpadMagnify { delta, .. } => {
+                        input_events.magnify_input.send(Magnify(delta as f32));
                     }
                     WindowEvent::MouseWheel { delta, .. } => match delta {
                         event::MouseScrollDelta::LineDelta(x, y) => {
